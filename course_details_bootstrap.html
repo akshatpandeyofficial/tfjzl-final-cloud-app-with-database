@@ -1,0 +1,46 @@
+{% extends "onlinecourse/base.html" %}
+{% load static %}
+
+{% block title %}{{ course.name }} | Course Details{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+            <span class="badge bg-primary">Course Details</span>
+            <span class="text-muted small">OnlineCourse</span>
+          </div>
+
+          <!-- Required: display the course name -->
+          <h1 class="h2 mb-3">{{ course.name }}</h1>
+
+          {% if course.description %}
+            <p class="lead text-secondary mb-4">{{ course.description }}</p>
+          {% endif %}
+
+          <hr class="my-4">
+
+          <h2 class="h4 mb-3">Related Lessons</h2>
+          <div class="list-group list-group-flush">
+            {% for lesson in course.lesson_set.all %}
+              <article class="list-group-item px-0 py-3">
+                <h3 class="h6 mb-1">{{ lesson.title }}</h3>
+                {% if lesson.content %}
+                  <p class="text-secondary mb-0">{{ lesson.content }}</p>
+                {% endif %}
+              </article>
+            {% empty %}
+              <div class="alert alert-info mb-0">
+                No lessons are available for this course yet.
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
